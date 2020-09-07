@@ -1,0 +1,39 @@
+Assumptions: 
+	RPi and ATtiny85 receive power at same time 
+	Any state has "do once" logic as needed.
+
+HIGH MONITOR will bring down START pin once (then set it to high-z), and hold up LBO
+LOW MONITOR will hold down LBO.
+
+ATtiny:
+                  +-ext:low-+                 +--ext:high--+
+                  |         |                 |            |
+                  V         |                 V            |
+STARTUP --true--> SYNC SIGNAL --ext:high--> HIGH MONITOR --+
+                                               |      ^
+                                               |      |
+                                               |   ext:high
+                                            ext:low   |
+                                               |      |
+                                               V      |
+                                             LOW MONITOR --+
+                                               ^           |
+                                               |           |
+                                               +--ext:low--+
+
+RPi:
+                     +------------------start:low----------- HALT MONITORED
+                     |                                               ^
+                     |                       +--true--+              |
+                     |                       |        |              |
+                     V                       V        |              |
+STARTUP --true--> BOOTING --lbo:low--> IGNORE WORLD --+            true
+                    |                                                |
+                lbo:high   +-----lbo:high-----+                      |
+                    |      |                  |                      |
+                    V      V                  |                      |
+                RUN MONITORED --lbo:low--> GRACE WAIT --timeout--> POWEROFF
+                |          ^
+                |          |
+                +-lbo:high-+
+
