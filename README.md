@@ -14,7 +14,8 @@ ATtiny85 pin used:
 - PB0/MOSI used as RX for soft UART (for debugging)
 - PB1/MISO used as TX for soft UART (for debugging)
 - PB2/SCK used to tell RPi to power off.
-- PB2 used to receive EXTernal signal (e.g. teevee power on indication). Circuit can be held up to 5VDC or down to ground, depending on which pads you put the resistor on (DON'T ATTACH BOTH R4 and R5 RESISTORS).
+- PB3 used to receive EXTernal signal (e.g. teevee power on indication). Circuit can be held up to 5VDC or down to ground, depending on which pads you put the resistor on (DON'T ATTACH BOTH R4 and R5 RESISTORS).
+- PB4 is attached to a momentary / tactile button to allow manual start of the RPi independent of the EXTernal signal.
 
 ATtiny85 code works with Arduino IDE and the https://github.com/SpenceKonde/ATTinyCore library.
 
