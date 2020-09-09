@@ -2,6 +2,8 @@ FitFullBoard is a Raspberry Pi- and Raspberry Pi Zero-compatible daughter board 
 
 I use it to keep an RPi media player powered along with my television. I connect the fitfullboard's signal pin called EXTERNAL to a USB cable which I plug into my smart teevee (but I power the RPi from an independent power source.) When the teevee comes on, it brings its USB port on, which wakes up the RPi. When the teevee goes off, it brings its USB port down, which puts the RPi to sleep (following a configurable grace period).  It is possible to turn the teevee back on at just the wrong time so as to get them out of sync (after the grace period expires, while the RPi operating system is still shutting down). 
 
+Python software is available in the [RPiIoT](https://github.com/jdimpson/RPiIoT) repo.
+
 FitFullBoard uses an ATtiny85 to control power up / power down and to monitor the EXTERNAL signal, and python code running in the RPi to handle shutdown and grace period. The grace period works because the ATtiny will hold the shutdown signal to the RPI down indefinitely. If the EXTERNAL signal comes back on, the ATtiny with bring the shutdown signal back high again. If this happens within the grace period, the python software will not initiate shutdown. You can instead use the Linux kernel's builtin signal handling for shutdown, althuogh AFAIK it has no way of offering a grace period.
 
 Raspberry Pi Pins used:
